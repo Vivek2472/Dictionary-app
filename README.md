@@ -1,3 +1,4 @@
+![image alt](https://github.com/Vivek2472/Dictionary-app/blob/main/Screenshot.png?raw=true)
 **Dictionary App**
 
 The Dictionary App is a modern and responsive web application designed to help users find the meanings of English words quickly and efficiently. Built using HTML, Tailwind CSS, and JavaScript, the app offers an intuitive user interface with several useful features like pronunciation, synonyms, antonyms, and example sentences. It fetches data from a free public Dictionary API to deliver accurate and real-time results. Whether you're a student, a writer, or just someone curious about a word, this app is a handy tool to enhance your vocabulary.
