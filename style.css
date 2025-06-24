@@ -1,0 +1,344 @@
+:root {
+    --bg-light: #f5f7fa;
+    --bg-dark: #1f2937;
+    --card-bg-light: #ffffff;
+    --card-bg-dark: #374151;
+    --text-light: #334155;
+    --text-dark: #f1f5f9;
+    --primary: #4f46e5;
+    --accent: #10b981;
+    --radius: 12px;
+    --transition: 0.3s;
+    /* loader colors */
+    --dot1: #4f46e5;
+    --dot2: #10b981;
+    --dot3: #ef4444;
+
+    /* Dark mode colors for specific text elements in results */
+    --dark-mode-blue-text: #9ca3af; /* A shade of grey for previously blue text */
+    --dark-mode-example-text: #a1a1aa; /* Another shade for example text */
+
+    /* Highlight color for POS titles (noun, adjective, verb) */
+    --highlight-light: #dbeafe; /* Light blue background */
+    --highlight-dark: #4a5568; /* Darker grey-blue background */
+    --highlight-text-light: #2563eb; /* Dark blue text */
+    --highlight-text-dark: #bfdbfe; /* Light blue text */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-light);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    transition: background var(--transition), color var(--transition);
+}
+body.dark {
+    background: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+/* initial full-page loader overlay */
+.initial-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+body.dark .initial-loader {
+    background: var(--bg-dark);
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 1rem;
+}
+.loader div {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: bounce 0.6s ease-in-out infinite;
+}
+.loader div:nth-child(1) {
+    background: var(--dot1);
+    animation-delay: 0s;
+}
+.loader div:nth-child(2) {
+    background: var(--dot2);
+    animation-delay: 0.2s;
+}
+.loader div:nth-child(3) {
+    background: var(--dot3);
+    animation-delay: 0.4s;
+}
+@keyframes bounce {
+    0%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background: var(--card-bg-light);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    animation: fadeIn 0.6s ease-out;
+    transition: background var(--transition);
+}
+body.dark .container {
+    background: var(--card-bg-dark);
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+.ip-info {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+.header {
+    background: var(--primary);
+    padding: 1.25rem;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.credit-line {
+    text-align: center;
+    color: #e0e7ff;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+.search-box {
+    padding: 1rem;
+}
+#search {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+#search:focus {
+    outline: none;
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.results {
+    position: relative;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0 1rem 1rem;
+}
+
+/* Styling for part of speech grouping container */
+.part-of-speech-group {
+    background: var(--card-bg-light);
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: background var(--transition);
+}
+body.dark .part-of-speech-group {
+    background: var(--card-bg-dark);
+}
+
+/* Styling for the part of speech title (e.g., "noun", "verb") */
+.part-of-speech-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    text-transform: capitalize;
+    padding: 0.25rem 0.5rem; /* Added padding for highlight effect */
+    border-radius: var(--radius); /* Added border-radius for highlight effect */
+    display: inline-block; /* Allows padding and border-radius to apply correctly */
+    transition: background var(--transition), color var(--transition);
+}
+body.dark .part-of-speech-title {
+    color: var(--dark-mode-blue-text); /* Grey in dark mode */
+}
+
+/* Highlighted POS titles (noun, adjective, verb) */
+.part-of-speech-title.highlighted {
+    background-color: var(--highlight-light);
+    color: var(--highlight-text-light);
+}
+body.dark .part-of-speech-title.highlighted {
+    background-color: var(--highlight-dark);
+    color: var(--highlight-text-dark);
+}
+
+/* Styling for individual word definition cards */
+.word-card {
+    background: var(--bg-light); /* Individual card within the group */
+    margin-top: 0.75rem;
+    padding: 1rem;
+    border-radius: var(--radius);
+    transition: background var(--transition), transform var(--transition);
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03); /* Lighter shadow for sub-cards */
+}
+body.dark .word-card {
+    background: var(--card-bg-dark);
+}
+.word-card:hover {
+    background: #eef2ff;
+    transform: translateX(5px);
+}
+body.dark .word-card:hover {
+    background: #4a5568; /* A darker shade for hover in dark mode */
+}
+
+/* Text colors for different parts of the word card */
+.word-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+body.dark .word-title {
+    color: var(--dark-mode-blue-text); /* Grey in dark mode */
+}
+
+.word-def,
+.word-example,
+.word-syn {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+.word-example {
+    font-style: italic;
+    color: #64748b;
+}
+body.dark .word-example {
+    color: var(--dark-mode-example-text); /* Grey in dark mode */
+}
+
+.word-syn {
+    color: var(--accent);
+}
+body.dark .word-syn {
+    color: var(--dark-mode-blue-text); /* Grey in dark mode */
+}
+
+.error {
+    color: #ff4757;
+    padding: 1rem;
+    text-align: center;
+}
+.theme-toggle {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: inherit;
+}
+button#reveal-ip,
+button#show-history {
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--primary);
+    background: transparent;
+    cursor: pointer;
+    color: var(--primary);
+    transition: all var(--transition);
+}
+body.dark button#reveal-ip,
+body.dark button#show-history {
+    border-color: var(--dark-mode-blue-text);
+    color: var(--dark-mode-blue-text);
+}
+button#reveal-ip:hover,
+button#show-history:hover {
+    background: var(--primary);
+    color: #fff;
+}
+body.dark button#reveal-ip:hover,
+body.dark button#show-history:hover {
+    background: var(--dark-mode-blue-text);
+    color: var(--bg-dark);
+}
+
+/* Show More/Less Button */
+.show-more-btn {
+    display: block;
+    width: fit-content;
+    margin: 1rem auto 0;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--primary);
+    background: transparent;
+    cursor: pointer;
+    color: var(--primary);
+    transition: all var(--transition);
+}
+body.dark .show-more-btn {
+    border-color: var(--dark-mode-blue-text);
+    color: var(--dark-mode-blue-text);
+}
+.show-more-btn:hover {
+    background: var(--primary);
+    color: #fff;
+}
+body.dark .show-more-btn:hover {
+    background: var(--dark-mode-blue-text);
+    color: var(--bg-dark);
+}
+
+.history-section {
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
