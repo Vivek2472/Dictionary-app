@@ -14,8 +14,7 @@ The Dictionary Web-App is a modern and responsive web application designed to he
 * **Example Usage**: Understand the word better by seeing how it's used in sentences.
 * **Dark and Light Themes**: Switch between dark and light modes based on your preference.
 * **Responsive Design**: Optimized layout for desktops, tablets, and mobile screens.
-* **IP Lookup Tool**: Quickly check your current IP address directly from the app.
-
+* **Phonetics**: Phonetics for specific words.
 ---
 
 ## 🧱 Tech Stack
